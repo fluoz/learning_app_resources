@@ -1,16 +1,18 @@
 <template>
-  <button
-    @click="clicked('stored')"
-    :class="isSelected === 'stored' ? activeCss : deactiveCss"
-  >
-    Stored Resources
-  </button>
-  <button
-    @click="clicked('add')"
-    :class="isSelected === 'add' ? activeCss : deactiveCss"
-  >
-    Add Resources
-  </button>
+  <div class="h-24 mt-12 shadow-card flex items-center max-w-3xl">
+    <button
+      @click="clicked('stored')"
+      :class="isSelected === 'stored' ? activeCss : deactiveCss"
+    >
+      Stored Resources
+    </button>
+    <button
+      @click="clicked('add')"
+      :class="isSelected === 'add' ? activeCss : deactiveCss"
+    >
+      Add Resources
+    </button>
+  </div>
 </template>
 <script setup>
 import { ref, computed } from "vue";
@@ -25,8 +27,11 @@ const activeCss = [
 ];
 const deactiveCss = ["text-purple-900", "w-48", "h-12", "font-semibold"];
 
+const emit = defineEmits(["click-button"]);
+
 const clicked = (btn) => {
   isSelected.value = btn;
+  emit("click-button", btn);
 };
 </script>
 <style scoped></style>
