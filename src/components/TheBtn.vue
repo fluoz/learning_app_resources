@@ -16,8 +16,12 @@
 </template>
 <script setup>
 import { ref, computed } from "vue";
-
-const isSelected = ref("stored");
+const props = defineProps({
+  isSelected: {
+    type: String,
+    required: true,
+  },
+});
 const activeCss = [
   "bg-purple-900",
   "w-48",
@@ -30,7 +34,7 @@ const deactiveCss = ["text-purple-900", "w-48", "h-12", "font-semibold"];
 const emit = defineEmits(["click-button"]);
 
 const clicked = (btn) => {
-  isSelected.value = btn;
+  props.isSelected = btn;
   emit("click-button", btn);
 };
 </script>

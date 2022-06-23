@@ -1,7 +1,7 @@
 <template>
   <the-header></the-header>
   <div class="max-w-3xl mx-auto">
-    <the-btn @ClickButton="getButton"></the-btn>
+    <the-btn :isSelected="isSelected" @ClickButton="getButton"></the-btn>
     <ul v-if="isSelected === 'stored'">
       <the-resource
         v-for="resource in storedResources"
@@ -11,6 +11,9 @@
         @click="deleteResource(delId)"
       ></the-resource>
     </ul>
+    <keep-alive>
+      <the-form @newdata="pushData" v-if="isSelected === 'add'"></the-form>
+    </keep-alive>
   </div>
 </template>
 
@@ -19,6 +22,7 @@ import { ref } from "vue";
 import TheHeader from "./components/TheHeader.vue";
 import TheBtn from "./components/TheBtn.vue";
 import TheResource from "./components/TheResource.vue";
+import TheForm from "./components/TheForm.vue";
 
 const isSelected = ref("stored");
 const delId = ref("null");
@@ -49,6 +53,11 @@ const deleteResource = (id) => {
   storedResources.value = storedResources.value.filter(
     (resource) => resource.id !== id
   );
+};
+
+const pushData = (value) => {
+  storedResources.value.push(value);
+  isSelected.value = "stored";
 };
 </script>
 <style>
