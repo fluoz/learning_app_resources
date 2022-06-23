@@ -1,17 +1,9 @@
 <template>
   <div class="h-24 mt-12 shadow-card flex items-center max-w-3xl">
-    <button
-      @click="clicked('stored')"
-      :class="isSelected === 'stored' ? activeCss : deactiveCss"
-    >
+    <button @click="clicked('stored')" :class="btnStoreCss">
       Stored Resources
     </button>
-    <button
-      @click="clicked('add')"
-      :class="isSelected === 'add' ? activeCss : deactiveCss"
-    >
-      Add Resources
-    </button>
+    <button @click="clicked('add')" :class="btnAddCss">Add Resources</button>
   </div>
 </template>
 <script setup>
@@ -32,6 +24,14 @@ const activeCss = [
 const deactiveCss = ["text-purple-900", "w-48", "h-12", "font-semibold"];
 
 const emit = defineEmits(["click-button"]);
+
+const btnAddCss = computed(() => {
+  return props.isSelected === "add" ? activeCss : deactiveCss;
+});
+
+const btnStoreCss = computed(() => {
+  return props.isSelected === "stored" ? activeCss : deactiveCss;
+});
 
 const clicked = (btn) => {
   props.isSelected = btn;
